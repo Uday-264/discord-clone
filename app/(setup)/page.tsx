@@ -9,12 +9,13 @@ const Setup = async () => {
             members: {
                 some: {
                     profileId: profile.id
+                    
                 }
             }
         }
     })
      if(server) {
-        return redirect(`/server/${server.id}`)
+        return redirect(`/servers/${server.id}`)
     }
 
     return (
