@@ -1,4 +1,5 @@
-
+"use client"
+import {useModel} from '@/hooks/use-model-store'
 import { ServerWithMembersWithProfiles } from '@/types';
 import {MemberRole} from '@prisma/client'
 import {ChevronDown,SettingsIcon,UserPlus,Users,PlusCircle,Trash, LogOut} from 'lucide-react'
@@ -10,15 +11,14 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
-  
 interface ServerHeaderProps{
     server:ServerWithMembersWithProfiles;
     role?:MemberRole;
 }
 const ServerHeader=({server,role}:ServerHeaderProps)=>{
+    const {onOpen}=useModel()
     const isAdmin=role===MemberRole.ADMIN
     const isModerator= role===MemberRole.MODERATOR || role===MemberRole.ADMIN
-
     return(
         <DropdownMenu>
             <DropdownMenuTrigger className='focus-outline-none' asChild>
@@ -30,13 +30,14 @@ const ServerHeader=({server,role}:ServerHeaderProps)=>{
             <DropdownMenuContent
                 className="w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]">
                     {isModerator && (
-                        <DropdownMenuItem className='text-indigo-600 dark:text-indigo-400 px-3 py-2 sm cursor-ponter'>
+                        <DropdownMenuItem onClick={()=>onOpen("invite",{server})}
+                        className='text-indigo-600 dark:text-indigo-400 px-3 py-2 sm cursor-ponter'>
                             Invite People
                             <UserPlus className='h-4 w-4 ml-auto'/>
                         </DropdownMenuItem>
                     )}
                     {isAdmin && (
-                        <DropdownMenuItem className='px-3 py-2 sm cursor-ponter'>
+                        <DropdownMenuItem className='px-3 py-2 sm cursor-ponter'onClick={()=>onOpen("editServer",{server})} >
                             Server Settings
                             <SettingsIcon className='h-4 w-4 ml-auto'/>
                         </DropdownMenuItem>

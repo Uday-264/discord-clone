@@ -1,6 +1,6 @@
 # version: "3.9
 services:
-  codexio-db:
+  discord-db:
     image: postgres
     restart: always
     container_name: discord-clone

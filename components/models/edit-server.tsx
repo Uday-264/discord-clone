@@ -1,4 +1,5 @@
 "use client"
+import {useEffect} from 'react'
 import axios from "axios"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -36,7 +37,8 @@ const formSchema = z.object({
 })
 
  const CreateServerModel = () => {
-  const {isOpen,type,onClose}=useModel()
+  const {isOpen,type,onClose,data}=useModel()
+  const {server}=data
   const router=useRouter()
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -45,14 +47,22 @@ const formSchema = z.object({
       imageUrl: ""
     }
   })
+  useEffect(()=>{
+    if(server){
+      form.setValue("name",server.name)
+      form.setValue("imageUrl",server.imageUrl)
+    }
+  },[server,form])
   const isLoading = form.formState.isSubmitting
   // handling onsubmit
-  const isModelOpen=isOpen && type==='createServer'
+  const isModelOpen=isOpen && type==='editServer'
+ 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try{
-      const response=await axios.post("/api/servers",values)
+      await axios.patch(`/api/servers/${server?.id}`,values)
       form.reset();
       router.refresh()
+      onClose()
     }
     catch(error){
       console.log("Error:",error)

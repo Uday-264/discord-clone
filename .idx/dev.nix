@@ -5,7 +5,6 @@
     pkgs.nodejs_20
     pkgs.docker
     pkgs.openssl
-    pkgs.nodePackages_latest.typescript-language-server
     
 
   ];
