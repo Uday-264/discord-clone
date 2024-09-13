@@ -43,13 +43,13 @@ const ServerHeader=({server,role}:ServerHeaderProps)=>{
                         </DropdownMenuItem>
                     )}
                     {isAdmin && (
-                        <DropdownMenuItem className='px-3 py-2 sm cursor-ponter'>
-                            Manage member
+                        <DropdownMenuItem className='px-3 py-2 sm cursor-ponter' onClick={()=>onOpen("members",{server})}>
+                            Manage members
                             <Users className='h-4 w-4 ml-auto'/>
                         </DropdownMenuItem>
                     )}
                     {isModerator && (
-                        <DropdownMenuItem className='px-3 py-2 sm cursor-ponter'>
+                        <DropdownMenuItem className='px-3 py-2 sm cursor-ponter' onClick={()=>onOpen("createChannel",{server})}>
                             Create Channels
                             <PlusCircle className='h-4 w-4 ml-auto'/>
                         </DropdownMenuItem>
@@ -59,13 +59,13 @@ const ServerHeader=({server,role}:ServerHeaderProps)=>{
                     ) 
                     }
                      {isAdmin && (
-                        <DropdownMenuItem className='text-rose-500 px-3 py-2 sm cursor-ponter'>
+                        <DropdownMenuItem className='text-rose-500 px-3 py-2 sm cursor-ponter' onClick={()=>onOpen("deleteServer",{server})}>
                             Delete server
                             <Trash className='h-4 w-4 ml-auto'/>
                         </DropdownMenuItem>
                     )}
                     {!isAdmin && (
-                        <DropdownMenuItem className='text-rose-500 px-3 py-2 sm cursor-ponter'>
+                        <DropdownMenuItem className='text-rose-500 px-3 py-2 sm cursor-ponter' onClick={()=>onOpen("leaveServer",{server})}>
                             Leave server
                             <LogOut className='h-4 w-4 ml-auto'/>
                         </DropdownMenuItem>

@@ -19,7 +19,7 @@ import {
     label,children,side,align
   }:TooltipAction)=>{
     return(
-        <TooltipProvider>
+      <TooltipProvider>
       <Tooltip delayDuration={50}>
         <TooltipTrigger asChild>
           {children}

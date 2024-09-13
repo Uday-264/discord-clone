@@ -32,3 +32,25 @@ export async function PATCH(request:Request,{params}:propsType) {
 
     
 }
+export async function DELETE(request:Request,{params}:propsType) {
+    try{
+        const profile=await currentProfile()
+        if(!profile){
+            return new NextResponse("Unauthorized",{status:401})
+        }
+        const serverId=params.serverId
+       const server=await db.server.delete({
+        where:{
+            id:serverId,
+            profileId:profile?.id
+        }
+       })
+       return NextResponse.json(server)
+    }
+    catch(error){
+        console.log("[server_id_patch]:",error)
+        return new NextResponse("Internal Server Error",{status:500})
+    }
+
+    
+}

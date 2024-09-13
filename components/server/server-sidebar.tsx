@@ -1,6 +1,7 @@
 import { currentProfile } from "@/lib/current-profile"
 import {redirect} from 'next/navigation'
 import {db} from '@/lib/db'
+import {ScrollArea} from '@/components/ui/scroll-area' 
 import ServerHeader from '@/components/server/server-header';
 interface ServerSidebarProps {
     serverId:string
@@ -45,6 +46,11 @@ export const ServerSidebar=async({serverId}:{serverId:string})=>{
     return(
         <div className="flex flex-col h-full w-full  dark:bg-[#2B2D31] bg-[#F2F3F5]">
             <ServerHeader server={server} role={role}/>
+            <ScrollArea className="flex-1 px-3">
+                <div className="mt-2">
+                    <ServerSearch/>
+                </div>
+            </ScrollArea>
         </div>
     )
 }

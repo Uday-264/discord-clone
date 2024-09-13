@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import {Server} from '@prisma/client'
-export type ModelType = "createServer" | "invite" | "editServer";
+export type ModelType = "createServer" | "invite" | "editServer" | "members" | "createChannel" | "leaveServer" | "deleteServer";
 interface ModelData{
   server?:Server
 }
