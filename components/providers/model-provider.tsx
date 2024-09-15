@@ -6,6 +6,8 @@ import MemberModel from '@/components/models/members-model'
 import CreateChannelModel from "@/components/models/create-channel-model"
 import LeaveServer from '@/components/models/leave-serer-model'
 import DeleteServer from '@/components/models/delete-server-model'
+import DeleteChannel from '@/components/models/delete-channel-model'
+import EditChannelModel from '@/components/models/edit-channel-model'
 import { useEffect, useState } from "react"
 
 export const ModelProvider=()=>{
@@ -25,6 +27,8 @@ export const ModelProvider=()=>{
         <CreateChannelModel/>
         <LeaveServer/>
         <DeleteServer/>
+        <DeleteChannel/>
+        <EditChannelModel/>
        </div>
     ) 
 }
