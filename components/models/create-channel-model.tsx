@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form'
 import {useModel} from '@/hooks/use-model-store'
 import {channelType} from '@prisma/client'
+import {useEffect} from 'react'
 import {Select,
   SelectContent,
   SelectItem,
@@ -43,16 +44,25 @@ const formSchema = z.object({
 })
 
  const CreateChannelModel = () => {
-  const {isOpen,type,onClose}=useModel()
+  const {isOpen,type,onClose,data}=useModel()
+  const {ChannelType}=data;
   const router=useRouter()
   const params=useParams()
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type:channelType.TEXT
+      type:ChannelType || channelType.TEXT 
     }
   })
+  useEffect(()=>{
+    if(ChannelType){
+      form.setValue("type",ChannelType)
+    }
+    else{
+      form.setValue("type",channelType.TEXT)
+    }
+  },[ChannelType,form])
   const isLoading = form.formState.isSubmitting
   // handling onsubmit
   const isModelOpen=isOpen && type==='createChannel'
