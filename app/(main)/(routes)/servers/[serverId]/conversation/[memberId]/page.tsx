@@ -39,6 +39,7 @@ const MemberIdPage=async({params}:MemberIdPageProps)=>{
                 serverId={params.serverId}
                 name={otherMember.profile.name}
                 />
+                
         </div>
     )
 }
