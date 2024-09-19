@@ -8,6 +8,7 @@ import LeaveServer from '@/components/models/leave-serer-model'
 import DeleteServer from '@/components/models/delete-server-model'
 import DeleteChannel from '@/components/models/delete-channel-model'
 import EditChannelModel from '@/components/models/edit-channel-model'
+import MessageFileModel from '@/components/models/message-file-model'
 import { useEffect, useState } from "react"
 
 export const ModelProvider=()=>{
@@ -29,6 +30,7 @@ export const ModelProvider=()=>{
         <DeleteServer/>
         <DeleteChannel/>
         <EditChannelModel/>
+        <MessageFileModel/>
        </div>
     ) 
 }
