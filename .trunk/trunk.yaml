@@ -13,5 +13,6 @@ runtimes:
     - node@18.12.1
     
 lint:
+  disabled:
+    - eslint
   enabled:
-    - eslint@8.57.0

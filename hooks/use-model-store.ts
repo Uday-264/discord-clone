@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import {Channel, Server,channelType} from '@prisma/client'
 export type ModelType = "createServer" | "invite" | "editServer" | "members" | "createChannel" | "leaveServer" |
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:4237412059.
- "deleteServer" | "deleteChannel"| "editChannel" | "messageFile";
+ "deleteServer" | "deleteChannel"| "editChannel" | "messageFile" | "deleteMessage";
 interface ModelData{
   server?:Server;
   ChannelType?:channelType;
