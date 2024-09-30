@@ -5,15 +5,19 @@ import {db} from '@/lib/db'
 import {getOrCreateConversation} from '@/lib/conversation'
 import ChatHeader from '@/components/chat/chat-header';
 import ChatMessages from '@/components/chat/chat-messages'
-import ChatInput from '@/components/chat/chat-input'
+import ChatInput from '@/components/chat/chat-input';
+import {MediaRoom} from '@/components/media-room'
 interface MemberIdPageProps {
     params:{
         memberId:string;
         serverId:string;
+    },
+    searchParams:{
+        video?:boolean
     }
     }
 
-const MemberIdPage=async({params}:MemberIdPageProps)=>{
+const MemberIdPage=async({params,searchParams}:MemberIdPageProps)=>{
     const profile=await currentProfile()
     if(!profile){
         return <RedirectToSignIn/>
@@ -41,7 +45,16 @@ const MemberIdPage=async({params}:MemberIdPageProps)=>{
                 serverId={params.serverId}
                 name={otherMember.profile.name}
                 />
-            <ChatMessages
+            {searchParams.video && (
+                <MediaRoom
+                    chatId={conversation.id}
+                    video={true}
+                    audio={true}
+                />
+            )}
+            {!searchParams.video && (
+                <>
+                    <ChatMessages
                 member={currentMember}
                 name={otherMember.profile.name}
                 chatId={conversation.id}
@@ -58,6 +71,8 @@ const MemberIdPage=async({params}:MemberIdPageProps)=>{
                 apiUrl="/api/socket/direct-messages"
                 query={{ conversationId: conversation.id }}
             />
+                </>
+            )}
                 
         </div>
     )

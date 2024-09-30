@@ -2,9 +2,12 @@ import {db} from '@/lib/db'
 import { currentProfile } from '@/lib/current-profile';
 import {RedirectToSignIn} from '@clerk/nextjs';
 import {redirect} from 'next/navigation'
+import {channelType} from '@prisma/client'
 import ChatHeader from '@/components/chat/chat-header'
 import ChatInput from '@/components/chat/chat-input'
-import ChatMessages from '@/components/chat/chat-messages'
+import ChatMessages from '@/components/chat/chat-messages';
+import {MediaRoom} from '@/components/media-room';
+
 interface ChannelIdPageProps{
     params:{
         serverId:string;
@@ -39,22 +42,43 @@ const ChannelIdPage=async({params}:ChannelIdPageProps)=>{
             <ChatHeader name={channel.name}
                 serverId={channel.serverId}
                 type='channel'
-            />
+                />
             <div className="flex-1">Future messages</div>
-            <ChatMessages
-            name={channel.name}
-            member={member}
-            chatId={channel.id}
-            apiUrl='/api/messages'
-            socketUrl='/api/socket/messages'
-            socketQuery={{
-                channelId:channelId,
-                serverId:serverId
-            }}
-            paramKey="channelId"
-            paramValue={channel.id}
-            type='channel'
-            />
+                {channel.type==channelType.TEXT && (
+                    <>
+                        <ChatMessages
+                            name={channel.name}
+                            member={member}
+                            chatId={channel.id}
+                            apiUrl='/api/messages'
+                            socketUrl='/api/socket/messages'
+                            socketQuery={{
+                                channelId:channelId,
+                                serverId:serverId
+                            }}
+                            paramKey="channelId"
+                            paramValue={channel.id}
+                            type='channel'
+                        />
+                    </>
+                )}
+
+                {channel.type==channelType.AUDIO && (
+                    <MediaRoom
+                        chatId={channel.id}
+                        video={false}
+                        audio={true}
+                    />
+                )}
+
+                {channel.type==channelType.VIDEO && (
+                    <MediaRoom
+                        chatId={channel.id}
+                        video={true}
+                        audio={false}
+                    />
+                )}
+            
             <ChatInput name={channel.name} 
                 type='channel'
                 apiUrl='/api/socket/messages'

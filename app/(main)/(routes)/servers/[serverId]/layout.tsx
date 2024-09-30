@@ -25,7 +25,7 @@ const ServerLayout=async({children,params}:{children:React.ReactNode,params:{ser
 
     return(
         <div className="h-full ">
-            <div className="hidden md:flex flex-col h-full w-60 z-20 fixed inset-y-o">
+            <div className="hidden md:flex flex-col h-full w-60 fixed inset-y-o">
                 <ServerSidebar serverId={params.serverId}/>
             </div>
             <main className='h-full md:pl-60'>
